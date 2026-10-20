@@ -77,7 +77,7 @@ public abstract class SharedReplicatorNestSystem : EntitySystem
 
         var isReplicator = HasComp<ReplicatorComponent>(args.Tripper);
 
-        // Allow dead replicators regardless of current level. 
+        // Allow dead replicators regardless of current level.
         if (TryComp<MobStateComponent>(args.Tripper, out var mobState) && isReplicator && _mobState.IsDead(args.Tripper))
         {
             StartFalling(ent, args.Tripper);
@@ -111,7 +111,7 @@ public abstract class SharedReplicatorNestSystem : EntitySystem
 
     private void HandlePoints(Entity<ReplicatorNestComponent> ent, EntityUid tripper) // this is its own method because I think it reads cleaner. also the way goobcode handled this sucked.
     {
-        if (_whitelist.IsBlacklistPass(ent.Comp.Blacklist, tripper))
+        if (_whitelist.IsWhitelistPass(ent.Comp.Blacklist, tripper))
             return;
 
         // regardless of what falls in, you get at least one point.
@@ -147,7 +147,7 @@ public abstract class SharedReplicatorNestSystem : EntitySystem
         else if (HasComp<MobStateComponent>(tripper))
         {
             // you get additional bonus points if it was a humanoid:
-            if (HasComp<HumanoidAppearanceComponent>(tripper))
+            if (HasComp<HumanoidProfileComponent>(tripper))
             {
                 // bonus points for humanoid (default 2) times current level
                 ent.Comp.TotalPoints += ent.Comp.BonusPointsHumanoid * ent.Comp.CurrentLevel;
@@ -163,13 +163,13 @@ public abstract class SharedReplicatorNestSystem : EntitySystem
             }
         }
 
-        // if we exceed the upgrade threshold after points are added, 
+        // if we exceed the upgrade threshold after points are added,
         if (ent.Comp.TotalPoints >= ent.Comp.NextUpgradeAt)
         {
             // level up
             ent.Comp.CurrentLevel++;
 
-            // this allows us to have an arbitrary number of unique messages for when the nest levels up - and a default for if we run out. 
+            // this allows us to have an arbitrary number of unique messages for when the nest levels up - and a default for if we run out.
             var growthMessage = $"replicator-nest-level{ent.Comp.CurrentLevel}";
             if (Loc.TryGetString(growthMessage, out var localizedMsg))
                 _popup.PopupEntity(localizedMsg, ent);

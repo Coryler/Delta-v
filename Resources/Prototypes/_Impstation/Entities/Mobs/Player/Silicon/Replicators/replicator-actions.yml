@@ -6,6 +6,9 @@
   name: Manufacture Nest
   description: Create a new nest for your hive.
   components:
+  - type: Action
+    icon: _Impstation/Interface/Actions/spawn_nest.png
+    useDelay: 0.5
   - type: InstantAction
     itemIconStyle: NoItem
     icon: _Impstation/Interface/Actions/spawn_nest.png
@@ -17,30 +20,35 @@
   name: Upgrade (Tier 2)
   description: Gather nanites. Gain manipulation.
   components:
+  - type: Action
+    icon: _Impstation/Interface/Actions/replicator_level2.png
+    useDelay: 20
   - type: InstantAction
     itemIconStyle: NoItem
-    icon: _Impstation/Interface/Actions/replicator_level2.png
     event: !type:ReplicatorUpgrade2ActionEvent
-    useDelay: 20
 
 - type: entity
   id: ActionReplicatorUpgrade3
   name: Upgrade (Tier 3)
   description: Gather nanites. Become stronger.
   components:
+  - type: Action
+    icon: _Impstation/Interface/Actions/replicator_level3.png
+    useDelay: 20
   - type: InstantAction
     itemIconStyle: NoItem
-    icon: _Impstation/Interface/Actions/replicator_level3.png
     event: !type:ReplicatorUpgrade3ActionEvent
-    useDelay: 20
 
 - type: entity
   id: ActionReplicatorStunRay
   name: Stun Ray
   description: Neutralize target to enable termination and consumption.
   components:
-  - type: WorldTargetAction
+  - type: Action
     icon: { sprite: _Impstation/Objects/Weapons/Guns/Projectiles/energybolts.rsi, state: lightstun } # todo: real sprite
+  - type: TargetAction
+    range: 8
+  - type: WorldTargetAction
     event: !type:ActionGunShootEvent
     priority: 2
     checkCanAccess: false
@@ -61,5 +69,5 @@
     capacity: 1
     count: 1
   - type: Gun
-    soundGunshot: /Audio/_Impstation/Weapons/Guns/Gunshots/stunprojector.ogg
+    soundGunshot: /Audio/Weapons/Guns/Gunshots/taser.ogg
     soundEmpty: null

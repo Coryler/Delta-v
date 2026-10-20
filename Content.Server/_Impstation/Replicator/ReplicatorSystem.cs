@@ -49,7 +49,7 @@ public sealed class ReplicatorSystem : EntitySystem
             if (!TryComp<MindContainerComponent>(ent, out var mindContainer) || mindContainer.Mind == null)
                 return;
 
-            if (!mindContainer.HasMind)
+            if (mindContainer.HasMind)
                 _actions.AddAction((EntityUid)ent, ent.Comp.SpawnNewNestAction);
             else
                 _actionContainer.AddAction((EntityUid)mindContainer.Mind, ent.Comp.SpawnNewNestAction);
@@ -125,7 +125,7 @@ public sealed class ReplicatorSystem : EntitySystem
         if (!TryComp<CombatModeComponent>(ent, out var combat))
             return;
 
-        // visual indicator that the replicator is aggressive. 
+        // visual indicator that the replicator is aggressive.
         _appearance.SetData(ent, ReplicatorVisuals.Combat, combat.IsInCombatMode);
     }
 }

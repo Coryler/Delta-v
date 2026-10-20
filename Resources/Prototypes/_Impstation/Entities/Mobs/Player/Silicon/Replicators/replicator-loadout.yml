@@ -1,8 +1,8 @@
 - type: startingGear
   id: StartingGearReplicatorTools
   inhand:
-    - OmnitoolUnremoveable
-    - WelderExperimentalUnremoveable
+    - Omnitool
+    - WelderExperimental
 
 - type: startingGear
   id: StartingGearReplicatorWeapon
@@ -25,7 +25,7 @@
   - type: MeleeWeapon
     attackRate: 0.7
     wideAnimationRotation: 180
-    soundHit: 
+    soundHit:
       path: "/Audio/Effects/metal_slam4.ogg"
     animation: WeaponArcSlash
     damage:
